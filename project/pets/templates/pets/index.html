@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+	{% if pets.count() > 0 %}
+		<h1>Here are the pets for {{owner.first_name}}</h1>
+		{% for pet in pets %}
+			<li>{{ pet.pet_name }}</li>
+			<a href="{{ url_for('pets.edit', owner_id=owner.id, id=pet.id) }}">Edit</a>
+			<a href="{{ url_for('pets.show', owner_id=owner.id, id=pet.id) }}?_method=DELETE" method="POST">Delete</a>
+			<br>
+			<br>
+		{% endfor %}
+		<a href="{{ url_for('pets.new', owner_id=owner.id) }}">Add a new pet</a>
+		<br>
+		<a href="{{ url_for('owners.index') }}">Go back to owners page</a>
+	{% else %}
+		<h1>{{ owner.first_name }} doesn't have any pets yet.</h1>
+		<a href="{{ url_for('pets.new', owner_id=owner.id) }}">Add a new pet</a>
+		<br>
+		<a href="{{ url_for('owners.index') }}">Go back to owners page</a>
+	{% endif %}
+{% endblock %}

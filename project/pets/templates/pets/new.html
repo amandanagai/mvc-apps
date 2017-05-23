@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+	<form action="{{ url_for('pets.index', owner_id=owner_id) }}" method="POST">
+		{{ form.csrf_token }}
+		<p>
+			{{ form.pet_name(placeholder='Pet Name') }}
+			<span>
+				{% if form.pet_name.errors %}
+					{% for error in errors %}
+						{{ error }}
+					{% endfor %}	
+				{% endif %}
+			</span>
+		</p>
+		<p>
+			{{ form.pet_age(placeholder=0) }}
+			<span>
+				{% if form.pet_name.errors %}
+					{% for error in errors %}
+						{{ error }}
+					{% endfor %}	
+				{% endif %}
+			</span>
+		</p>
+			<button type="submit">Add pet</button>
+	</form>
+{% endblock %}

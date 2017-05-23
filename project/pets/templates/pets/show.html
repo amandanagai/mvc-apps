@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+	{% if pets|length > 0 %}
+		<p>
+			{{ pet_name }} is {{ pet_age }} years old and belongs to {{pet.owner}}
+		</p>
+		<a href="{{ url_for('pets.edit', owner_id=owner_id, id=id) }}">Edit</a>
+		<form action="{{ url_for('pets.show', owner_id=owner_id, id=id) }}?_method=DELETE" method="POST">
+			<input type="submit" value="Delete">
+		</form>
+	{% else %}
+		<p>There are no pets yet</p>
+		<a href="{{ url_for('pets.new', owner_id=owner_id) }}">Add a pet</a>
+	{% endif %}
+{% endblock %}
