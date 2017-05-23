@@ -6,7 +6,13 @@ import os
 app = Flask(__name__)
 modus = Modus(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/owners_mvc'
+if os.environ.get('ENV') == 'production':
+    debug = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+else:
+    debug = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://localhost/owners_mvc'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 db = SQLAlchemy(app)
